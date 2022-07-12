@@ -1,7 +1,10 @@
 import axios, { AxiosInstance } from "axios";
+
 import { appConfig } from "@/config/appConfig";
-import { SWApiRoutes } from "./swApiRoutes";
+import { getPlanetIdFromUrl } from "@/utils/getPlanetIdFromUrl";
+import { SWApiRoutes } from "@/routes/swApiRoutes";
 import { GetPlanetsQuery, GetPlanetsResponse } from "@/models/api";
+import { Planet } from "@/models/planets";
 
 interface SWApiInstance extends AxiosInstance {
   getPlanets: (requestOptions?: GetPlanetsQuery) => Promise<GetPlanetsResponse>;
@@ -13,7 +16,6 @@ const getApiInstance = (baseURL = appConfig.baseURL): SWApiInstance => {
   if (instance) {
     return instance;
   }
-  console.log(baseURL);
   const api = axios.create({
     baseURL,
     headers: {
@@ -34,9 +36,16 @@ const getApiInstance = (baseURL = appConfig.baseURL): SWApiInstance => {
       },
     });
 
+    const planets: Planet[] = data?.results?.map(
+      (planet: Omit<Planet, "id">): Planet => ({
+        ...planet,
+        id: getPlanetIdFromUrl(planet.url),
+      })
+    );
+
     return {
-      planets: data.results,
-      total: data.count,
+      planets,
+      total: data?.count,
     };
   };
 

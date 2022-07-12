@@ -1,0 +1,25 @@
+@import "@/styles/colors.scss", "@/styles/metrics.scss", "@/styles/fonts.scss";
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $border-radius;
+  padding: $small-space;
+  background-color: $primary;
+  width: $buttonWidth;
+}
+
+.button_secondary {
+  background-color: $secondary;
+}
+
+.buttonText {
+  color: $white;
+  font-size: $size-small;
+  font-weight: bold;
+}
+
+.buttonText_large {
+  font-size: $size-medium;
+}
