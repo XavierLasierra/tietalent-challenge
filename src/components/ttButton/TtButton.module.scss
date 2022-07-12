@@ -8,6 +8,8 @@
   padding: $small-space;
   background-color: $primary;
   width: $buttonWidth;
+  border: none;
+  cursor: pointer;
 }
 
 .button_secondary {

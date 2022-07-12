@@ -1,8 +1,8 @@
-@import "./reset", "./colors";
+@import "./reset", "./colors", "./fonts";
 
 html,
 body {
-  font-family: Nunito, sans-serif;
+  font-family: $font-family;
   background-color: $background;
 }
 

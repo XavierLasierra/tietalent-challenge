@@ -13,5 +13,5 @@ export interface Planet {
   url: string;
   created: string; // ISO 8601
   edited: string; // ISO 8601
-  id?: string;
+  id: string;
 }
