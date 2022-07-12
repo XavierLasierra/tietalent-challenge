@@ -6,4 +6,8 @@
   box-shadow: 1px 1px 5px $shadow;
   display: flex;
   padding: $medium-space;
+
+  &_highlighted {
+    background-color: $highlight;
+  }
 }

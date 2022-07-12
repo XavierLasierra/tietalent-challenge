@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { GetServerSidePropsContext } from "next";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import Head from "next/head";
 
@@ -12,63 +13,127 @@ import { GetPlanetsQuery } from "@/models/api";
 import { AppRoutes } from "@/routes/appRoutes";
 
 import styles from "@/pages/index.module.scss";
+import TtRadarChart, {
+  TTRadarChartDataset,
+} from "@/components/ttRadarChart/TtRadarChart";
 
 interface HomeProps {
   planets: Planet[];
   totalPlanets: number;
+  currentPage: number;
 }
 
-export default function Home({ planets = [], totalPlanets = 0 }: HomeProps) {
+export default function Home({
+  planets = [],
+  totalPlanets,
+  currentPage,
+}: HomeProps) {
+  const router = useRouter();
+  const [selectedPlanets, setSelectedPlanets] = useState<Planet[]>([]);
+
+  const wantedStats: string[] = [
+    "Rotation period (days)",
+    "Orbital period (*100days)",
+    "Diameter (*1000km)",
+    "Gravity (g)",
+    "Surface water (%)",
+    "population (*1,000,000 habitants)",
+  ];
+  const chartData: TTRadarChartDataset[] = selectedPlanets.map((planet) => ({
+    label: planet.name,
+    data: [
+      +planet.rotation_period,
+      +planet.orbital_period,
+      +planet.diameter / 1000,
+      +planet.gravity.split(" ")[0],
+      +planet.surface_water,
+      +planet.population / 1000000,
+    ],
+  }));
+
+  const navigateToPlanetsPage = (pageNumber: number) => {
+    router.push({
+      pathname: AppRoutes.home,
+      query: { ...router.query, page: pageNumber },
+    });
+  };
+
+  const onSelect = (planet: Planet) => {
+    if (selectedPlanets.includes(planet)) {
+      setSelectedPlanets(selectedPlanets.filter((p) => p.id !== planet.id));
+    } else {
+      setSelectedPlanets([...selectedPlanets, planet]);
+    }
+  };
+
+  const isPlanetSelected = (planetId: string) =>
+    selectedPlanets.some((planet) => planet.id === planetId);
+
   return (
     <>
       <Head>
-        <title>TieTalent challenge</title>
+        <title>Planets comparator - TieTalent challenge</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>Planets explorer</h1>
-      <ul className={styles.planets}>
-        {planets.map((planet) => (
-          <li className={styles.planetContainer} key={planet.id}>
-            <TtCard>
-              <div className={styles.planet}>
-                <h2>{planet.name}</h2>
-                <div className={styles.planetContent}>
-                  <section>
-                    <p>
-                      <span>Rotation period:</span> {planet.rotation_period}{" "}
-                      days
-                    </p>
-                    <p>
-                      <span>Orbital period:</span> {planet.orbital_period} days
-                    </p>
-                    <p>
-                      <span>Diameter:</span> {planet.diameter}m
-                    </p>
-                    <p>
-                      <span>Gravity:</span> {planet.gravity} m/s2
-                    </p>
-                    <p>
-                      <span>Surface Water:</span> {planet.surface_water}l
-                    </p>
-                    <p>
-                      <span>Population:</span> {planet.population}
-                    </p>
-                  </section>
-                  <Link href={`${AppRoutes.planets}/${planet.id}`} passHref>
-                    <TtButton text="See detail" />
-                  </Link>
-                </div>
-              </div>
-            </TtCard>
-          </li>
-        ))}
-      </ul>
+      <h1>Planets comparator</h1>
+      <div className={styles.container}>
+        <div className={styles.planetsChart}>
+          <TtRadarChart
+            title="Selected planets comparison"
+            labels={wantedStats}
+            datasets={chartData}
+          />
+        </div>
+        <section className={styles.planetsSection}>
+          <ul className={styles.planets}>
+            {planets.map((planet) => (
+              <li className={styles.planetContainer} key={planet.id}>
+                <TtCard highlighted={isPlanetSelected(planet.id)}>
+                  <div className={styles.planet}>
+                    <h2>{planet.name}</h2>
+                    <div className={styles.planetContent}>
+                      <TtButton
+                        text={
+                          isPlanetSelected(planet.id) ? "Unselect" : "Select"
+                        }
+                        onClick={() => onSelect(planet)}
+                      />
+                      <Link href={`${AppRoutes.planets}/${planet.id}`} passHref>
+                        <TtButton text="See detail" type="secondary" />
+                      </Link>
+                    </div>
+                  </div>
+                </TtCard>
+              </li>
+            ))}
+          </ul>
+          <nav className={styles.planetNavigationButtons}>
+            <div>
+              {currentPage > 1 && (
+                <TtButton
+                  text="Previous"
+                  onClick={() => navigateToPlanetsPage(+currentPage - 1)}
+                />
+              )}
+            </div>
+            <div>
+              {currentPage * planets.length < totalPlanets && (
+                <TtButton
+                  text="Next"
+                  onClick={() => navigateToPlanetsPage(+currentPage + 1)}
+                />
+              )}
+            </div>
+          </nav>
+        </section>
+      </div>
     </>
   );
 }
 
 export async function getServerSideProps({ query }: GetServerSidePropsContext) {
   const api = getApiInstance();
+  let props = {};
   try {
     const { name, page } = query as GetPlanetsQuery;
     const { planets, total: totalPlanets } = await api.getPlanets({
@@ -76,13 +141,13 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
       page,
     });
 
-    return {
-      props: {
-        planets,
-        totalPlanets,
-      } as HomeProps,
-    };
+    props = {
+      planets: planets || [],
+      totalPlanets: totalPlanets || 0,
+      currentPage: page || 1,
+    } as HomeProps;
   } catch (e) {
     //
   }
+  return { props };
 }
