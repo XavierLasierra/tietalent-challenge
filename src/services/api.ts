@@ -8,6 +8,7 @@ import { Planet } from "@/models/planets";
 
 interface SWApiInstance extends AxiosInstance {
   getPlanets: (requestOptions?: GetPlanetsQuery) => Promise<GetPlanetsResponse>;
+  getPlanetById: (planetId: string) => Promise<Planet>;
 }
 
 let instance: SWApiInstance;
@@ -47,6 +48,13 @@ const getApiInstance = (baseURL = appConfig.baseURL): SWApiInstance => {
       planets,
       total: data?.count,
     };
+  };
+
+  api.getPlanetById = async (planetId: string): Promise<Planet> => {
+    const { data } = await api.get(`${SWApiRoutes.planets}/${planetId}`);
+    if (!data) throw new Error("Planet not found");
+
+    return data;
   };
 
   api.interceptors.response.use(
