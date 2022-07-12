@@ -21,7 +21,9 @@
       "@/styles/*": ["src/styles/*"],
       "@/services/*": ["src/services/*"],
       "@/models/*": ["src/models/*"],
-      "@/config/*": ["src/config/*"]
+      "@/config/*": ["src/config/*"],
+      "@/utils/*": ["src/utils/*"],
+      "@/routes/*": ["src/routes/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types.d.ts"],
