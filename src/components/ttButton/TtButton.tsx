@@ -31,7 +31,9 @@ const TtButton = (
       <span className={getTextStyle()}>{text}</span>
     </a>
   ) : (
-    <button onClick={onClick}>{text}</button>
+    <button className={getButtonStyle()} onClick={onClick}>
+      <span className={getTextStyle()}>{text}</span>
+    </button>
   );
 };
 
