@@ -1,7 +1,17 @@
-@import "./reset";
+@import "./reset", "./colors";
 
 html,
 body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: $background;
+}
+
+.wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
 }

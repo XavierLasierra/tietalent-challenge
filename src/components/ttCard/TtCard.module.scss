@@ -1,0 +1,9 @@
+@import "@/styles/colors.scss", "@/styles/metrics.scss";
+
+.card {
+  background-color: $white;
+  border-radius: $border-radius;
+  box-shadow: 1px 1px 5px $shadow;
+  display: flex;
+  padding: $medium-space;
+}
