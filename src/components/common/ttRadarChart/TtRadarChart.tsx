@@ -39,7 +39,7 @@ const TtRadarChart = ({
   datasets,
   emptyText = "No data",
 }: TTRadarChartProps) => {
-  const data: ChartData<"radar"> = {
+  const datasetsData: ChartData<"radar"> = {
     labels,
     datasets: datasets.map(({ data, label }) => ({
       label,
@@ -51,7 +51,7 @@ const TtRadarChart = ({
   return (
     <div className={styles.chartBox}>
       {datasets.length > 0 ? (
-        <Radar data={data} />
+        <Radar data={datasetsData} />
       ) : (
         <p className={styles.emptyChart}>{emptyText}</p>
       )}
