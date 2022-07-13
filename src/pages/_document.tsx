@@ -10,6 +10,10 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Nunito&display=swap"
           rel="stylesheet"
         />
+        <meta
+          name="description"
+          content="TieTalent challenge website made by Xavier Lasierra Pérez"
+        />
       </Head>
       <body>
         <Main />

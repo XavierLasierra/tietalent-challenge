@@ -32,8 +32,13 @@ const Header = ({ onSearch, initialSearchValue }: HeaderProps) => {
     <header className={styles.header}>
       <nav>
         <Link href={AppRoutes.home}>
-          <a>
-            <Image src="/page_logo.png" width={32} height={32} />
+          <a aria-label="Navigate to Home Page">
+            <Image
+              src="/page_logo.png"
+              alt="Saturn outline"
+              width={32}
+              height={32}
+            />
           </a>
         </Link>
       </nav>

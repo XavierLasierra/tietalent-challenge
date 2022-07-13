@@ -30,6 +30,7 @@ Rename `.env.example` file to `.env.local` and fill it with the correct data (AP
 - Use `styled-components` to have a more solid style structure.
 - Adopt a Test Driven Development flow when developing to ensure better code quality.
 - Have more unit tests and integration tests.
+- Improve website accessibility.
 - Add git hooks (`husky`) to trigger actions as linting before commiting.
 - Add github actions to run the tests on pull request to check if everythings is ok before merging.
 - Create a figma beforehand to have a more clean design.
