@@ -1,3 +1,17 @@
+@import "./colors";
+
 $size-small: 0.8rem;
-$size-medium: 1.2rem;
+$size-medium: 1rem;
+$size-large: 1.25rem;
+$size-h1: 2rem;
 $font-family: Nunito, sans-serif;
+
+@mixin text-style(
+  $size: $size-medium,
+  $font-weight: "normal",
+  $color: $secondary
+) {
+  font-size: $size;
+  color: $color;
+  font-weight: $font-weight;
+}

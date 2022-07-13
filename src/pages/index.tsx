@@ -75,13 +75,14 @@ export default function Home({
         <title>Planets comparator - TieTalent challenge</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>Planets comparator</h1>
+      <h1 className={styles.planetsTitle}>Planets comparator</h1>
       <div className={styles.container}>
         <div className={styles.planetsChart}>
           <TtRadarChart
             title="Selected planets comparison"
             labels={wantedStats}
             datasets={chartData}
+            emptyText="No planets selected"
           />
         </div>
         <section className={styles.planetsSection}>
@@ -90,7 +91,7 @@ export default function Home({
               <li className={styles.planetContainer} key={planet.id}>
                 <TtCard highlighted={isPlanetSelected(planet.id)}>
                   <div className={styles.planet}>
-                    <h2>{planet.name}</h2>
+                    <h2 className={styles.planetName}>{planet.name}</h2>
                     <div className={styles.planetContent}>
                       <TtButton
                         text={

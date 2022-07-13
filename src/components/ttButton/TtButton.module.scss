@@ -1,4 +1,4 @@
-@import "@/styles/colors.scss", "@/styles/metrics.scss", "@/styles/fonts.scss";
+@import "@/styles/colors", "@/styles/metrics", "@/styles/fonts";
 
 .button {
   display: flex;
@@ -25,9 +25,7 @@
 }
 
 .buttonText {
-  color: $white;
-  font-size: $size-small;
-  font-weight: bold;
+  @include text-style($size-small, "bold", $white);
 }
 
 .buttonText_large {

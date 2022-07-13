@@ -1,0 +1,27 @@
+@import "@/styles/metrics.scss", "@/styles/fonts.scss";
+
+.planetName {
+  @include text-style($size-h1, "bold", $primary);
+}
+
+.planetProperties {
+  max-width: 100%;
+  text-overflow: clip;
+  word-wrap: break-word;
+  list-style: none;
+  padding-top: $medium-space;
+}
+
+.planetProperty {
+  @include text-style();
+  max-width: 100%;
+  padding-top: $small-space;
+
+  &:first-child {
+    padding-top: 0;
+  }
+}
+
+.planetPropertyKey {
+  font-weight: bold;
+}

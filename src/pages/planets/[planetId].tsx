@@ -1,9 +1,11 @@
 import React from "react";
+import { GetStaticPropsContext } from "next";
+import Head from "next/head";
 
 import { getApiInstance } from "@/services/api";
-import { GetStaticPropsContext } from "next";
 import { Planet } from "@/models/planets";
-import Head from "next/head";
+
+import styles from "./Planet.module.scss";
 
 interface PlanetProps {
   planet: Planet;
@@ -16,10 +18,17 @@ const Planet = ({ planet }: PlanetProps) => {
         <title>Planet {planet.name} - TieTalent challenge</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>{planet.name}</h1>
-      {Object.entries(planet).map(([key, value]) => (
-        <p key={key}>{`${key}: ${value}`}</p>
-      ))}
+      <h1 className={styles.planetName}>{planet.name}</h1>
+      <ul className={styles.planetProperties}>
+        {Object.entries(planet).map(([key, value]) => (
+          <li key={key} className={styles.planetProperty}>
+            <span className={styles.planetPropertyKey}>
+              {key.toUpperCase()}:{" "}
+            </span>
+            {value}
+          </li>
+        ))}
+      </ul>
     </>
   );
 };

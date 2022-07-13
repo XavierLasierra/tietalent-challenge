@@ -39,8 +39,8 @@ const getApiInstance = (baseURL = appConfig.baseURL): SWApiInstance => {
 
     const planets: Planet[] = data?.results?.map(
       (planet: Omit<Planet, "id">): Planet => ({
-        ...planet,
         id: getPlanetIdFromUrl(planet.url),
+        ...planet,
       })
     );
 
@@ -54,7 +54,12 @@ const getApiInstance = (baseURL = appConfig.baseURL): SWApiInstance => {
     const { data } = await api.get(`${SWApiRoutes.planets}/${planetId}`);
     if (!data) throw new Error("Planet not found");
 
-    return data;
+    const planet: Planet = {
+      id: getPlanetIdFromUrl(data.url),
+      ...data,
+    };
+
+    return planet;
   };
 
   api.interceptors.response.use(

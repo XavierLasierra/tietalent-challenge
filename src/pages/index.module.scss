@@ -1,8 +1,12 @@
-@import "@/styles/metrics.scss";
+@import "@/styles/metrics", "@/styles/fonts", "@/styles/colors";
 
 .container {
   display: flex;
   flex-direction: column;
+}
+
+.planetsTitle {
+  @include text-style($size-h1, "bold", $primary);
 }
 
 .planetsChart {
@@ -11,7 +15,6 @@
 
 .planetsSection {
   flex: 1;
-  padding: $medium-space;
 }
 
 .planets {
@@ -29,6 +32,10 @@
   align-items: center;
 }
 
+.planetName {
+  @include text-style($size-large, "bold");
+}
+
 .planetContent {
   flex: 1;
   display: flex;
@@ -40,7 +47,7 @@
 }
 
 .planetNavigationButtons {
-  padding-top: $medium-space;
+  padding-top: $large-space;
   display: flex;
   justify-content: space-between;
 }
