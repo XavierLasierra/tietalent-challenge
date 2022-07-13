@@ -11,7 +11,7 @@ interface PlanetProps {
   planet: Planet;
 }
 
-const Planet = ({ planet }: PlanetProps) => {
+const PlanetDetail = ({ planet }: PlanetProps) => {
   const title = `Planet ${planet.name} - TieTalent challenge`;
 
   return (
@@ -65,4 +65,4 @@ export const getStaticPaths = async () => {
   }
 };
 
-export default Planet;
+export default PlanetDetail;
