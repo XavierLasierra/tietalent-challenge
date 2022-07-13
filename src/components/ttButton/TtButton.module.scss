@@ -7,13 +7,21 @@
   border-radius: $border-radius;
   padding: $small-space;
   background-color: $primary;
-  width: $buttonWidth;
+  width: $button-width;
   border: none;
   cursor: pointer;
 }
 
 .button_secondary {
   background-color: $secondary;
+}
+
+.button_transparent {
+  background-color: $transparent;
+}
+
+.button_auto {
+  width: auto;
 }
 
 .buttonText {
@@ -24,4 +32,8 @@
 
 .buttonText_large {
   font-size: $size-medium;
+}
+
+.buttonText_transparent {
+  color: $secondary;
 }

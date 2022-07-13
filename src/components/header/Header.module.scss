@@ -1,0 +1,18 @@
+@import "@/styles/metrics.scss", "@/styles/colors.scss";
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  padding: 0 $large-space;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $background;
+  height: $header-height;
+}
+
+.searchForm {
+  display: flex;
+}

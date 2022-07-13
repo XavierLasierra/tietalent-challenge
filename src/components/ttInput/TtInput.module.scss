@@ -1,0 +1,13 @@
+@import "@/styles/metrics.scss", "@/styles/colors.scss";
+
+.textInput {
+  background-color: $secondary10;
+  padding: $small-space;
+  border: 2px solid $secondary;
+  border-radius: $border-radius;
+  width: $input-size;
+}
+
+.searchInput::placeholder {
+  color: $secondary;
+}
