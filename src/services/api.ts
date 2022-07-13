@@ -4,7 +4,7 @@ import { appConfig } from "@/config/appConfig";
 import { getPlanetIdFromUrl } from "@/utils/getPlanetIdFromUrl";
 import { SWApiRoutes } from "@/routes/swApiRoutes";
 import { GetPlanetsQuery, GetPlanetsResponse } from "@/models/api";
-import { Planet } from "@/models/planets";
+import { DatabasePlanet, Planet } from "@/models/planets";
 
 interface SWApiInstance extends AxiosInstance {
   getPlanets: (requestOptions?: GetPlanetsQuery) => Promise<GetPlanetsResponse>;
@@ -36,11 +36,9 @@ const getApiInstance = (baseURL = appConfig.baseURL): SWApiInstance => {
         page: requestOptions?.page,
       },
     });
-
     const planets: Planet[] = data?.results?.map(
-      (planet: Omit<Planet, "id">): Planet => ({
-        id: getPlanetIdFromUrl(planet.url),
-        ...planet,
+      (planet: DatabasePlanet): Planet => ({
+        ...new Planet(planet),
       })
     );
 
@@ -54,10 +52,7 @@ const getApiInstance = (baseURL = appConfig.baseURL): SWApiInstance => {
     const { data } = await api.get(`${SWApiRoutes.planets}/${planetId}`);
     if (!data) throw new Error("Planet not found");
 
-    const planet: Planet = {
-      id: getPlanetIdFromUrl(data.url),
-      ...data,
-    };
+    const planet: Planet = { ...new Planet(data) };
 
     return planet;
   };
