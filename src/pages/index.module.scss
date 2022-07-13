@@ -15,6 +15,9 @@
 
 .planetsSection {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: $large-space;
 }
 
 .planets {
@@ -25,31 +28,8 @@
   list-style-type: none;
 }
 
-.planet {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.planetName {
-  @include text-style($size-large, "bold");
-}
-
-.planetContent {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: $small-space;
-  align-items: center;
-  width: 100%;
-  padding-top: $medium-space;
-}
-
-.planetNavigationButtons {
+.planetNavigationContainer {
   padding-top: $large-space;
-  display: flex;
-  justify-content: space-between;
 }
 
 @media only screen and (min-width: $mobile-breakpoint) {
@@ -69,11 +49,5 @@
   .planetContainer {
     max-width: $card-size;
     flex: 1;
-  }
-
-  .planetContent {
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-between;
   }
 }

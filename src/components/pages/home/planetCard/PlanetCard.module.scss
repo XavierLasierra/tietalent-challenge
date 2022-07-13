@@ -1,0 +1,30 @@
+@import "@/styles/metrics", "@/styles/fonts", "@/styles/colors";
+
+.planet {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.planetName {
+  @include text-style($size-large, "bold");
+}
+
+.planetContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: $small-space;
+  align-items: center;
+  width: 100%;
+  padding-top: $medium-space;
+}
+
+@media only screen and (min-width: $mobile-breakpoint) {
+  .planetContent {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}

@@ -1,0 +1,11 @@
+@import "@/styles/fonts";
+
+.navigationContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pageCount {
+  @include text-style();
+  text-align: center;
+}

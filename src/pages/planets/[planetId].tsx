@@ -12,10 +12,12 @@ interface PlanetProps {
 }
 
 const Planet = ({ planet }: PlanetProps) => {
+  const title = `Planet ${planet.name} - TieTalent challenge`;
+
   return (
     <>
       <Head>
-        <title>Planet {planet.name} - TieTalent challenge</title>
+        <title>{title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1 className={styles.planetName}>{planet.name}</h1>
