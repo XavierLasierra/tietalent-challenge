@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import Head from "next/head";
 
-import TtButton from "@/common-components/ttButton/TtButton";
-import TtCard from "@/common-components/ttCard/TtCard";
 import TtRadarChart, {
   TTRadarChartDataset,
 } from "@/common-components/ttRadarChart/TtRadarChart";
+import PlanetCard from "@/components/home/planetCard/PlanetCard";
+import PagesNavigation from "@/components/home/pagesNavigation/PagesNavigation";
 
 import { getApiInstance } from "@/services/api";
 import { Planet } from "@/models/planets";
@@ -16,13 +15,25 @@ import { GetPlanetsQuery } from "@/models/api";
 import { AppRoutes } from "@/routes/appRoutes";
 
 import styles from "@/pages/index.module.scss";
-import PlanetCard from "@/components/home/planetCard/PlanetCard";
-import PagesNavigation from "@/components/home/pagesNavigation/PagesNavigation";
 
 interface HomeProps {
   planets: Planet[];
   totalPlanets: number;
   currentPage: number;
+}
+
+const STATS_LABELS: string[] = [
+  "Rotation period (days)",
+  "Orbital period (*100days)",
+  "Diameter (*1000km)",
+  "Gravity (g)",
+  "Surface water (%)",
+  "population (*1,000,000 habitants)",
+];
+
+interface SelectedPlanetState {
+  planetData: TTRadarChartDataset;
+  id: string;
 }
 
 export default function Home({
@@ -31,27 +42,9 @@ export default function Home({
   currentPage,
 }: HomeProps) {
   const router = useRouter();
-  const [selectedPlanets, setSelectedPlanets] = useState<Planet[]>([]);
-
-  const wantedStats: string[] = [
-    "Rotation period (days)",
-    "Orbital period (*100days)",
-    "Diameter (*1000km)",
-    "Gravity (g)",
-    "Surface water (%)",
-    "population (*1,000,000 habitants)",
-  ];
-  const chartData: TTRadarChartDataset[] = selectedPlanets.map((planet) => ({
-    label: planet.name,
-    data: [
-      +planet.rotation_period,
-      +planet.orbital_period,
-      +planet.diameter / 1000,
-      +planet.gravity.split(" ")[0],
-      +planet.surface_water,
-      +planet.population / 1000000,
-    ],
-  }));
+  const [selectedPlanets, setSelectedPlanets] = useState<SelectedPlanetState[]>(
+    []
+  );
 
   const navigateToPlanetsPage = (pageNumber: number) => {
     router.push({
@@ -60,11 +53,30 @@ export default function Home({
     });
   };
 
+  const transformPlanetData = (planet: Planet): SelectedPlanetState => ({
+    id: planet.id,
+    planetData: {
+      label: planet.name,
+      data: [
+        +planet.rotation_period,
+        +planet.orbital_period,
+        +planet.diameter / 1000,
+        +planet.gravity.split(" ")[0],
+        +planet.surface_water,
+        +planet.population / 1000000,
+      ],
+    },
+  });
+
   const onSelectPlanet = (planet: Planet) => {
-    if (selectedPlanets.includes(planet)) {
-      setSelectedPlanets(selectedPlanets.filter((p) => p.id !== planet.id));
+    if (isPlanetSelected(planet.id)) {
+      setSelectedPlanets(
+        selectedPlanets.filter(
+          ({ id }: SelectedPlanetState) => id !== planet.id
+        )
+      );
     } else {
-      setSelectedPlanets([...selectedPlanets, planet]);
+      setSelectedPlanets([...selectedPlanets, transformPlanetData(planet)]);
     }
   };
 
@@ -82,8 +94,8 @@ export default function Home({
         <section className={styles.planetsChart}>
           <TtRadarChart
             title="Selected planets comparison"
-            labels={wantedStats}
-            datasets={chartData}
+            labels={STATS_LABELS}
+            datasets={selectedPlanets.map((planet) => planet.planetData)}
             emptyText="No planets selected"
           />
         </section>
