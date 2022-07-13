@@ -31,6 +31,7 @@ Rename `.env.example` file to `.env.local` and fill it with the correct data (AP
 - Adopt a Test Driven Development flow when developing to ensure better code quality.
 - Have more unit tests and integration tests.
 - Improve website accessibility.
+- Better detail page.
 - Add git hooks (`husky`) to trigger actions as linting before commiting.
 - Add github actions to run the tests on pull request to check if everythings is ok before merging.
 - Create a figma beforehand to have a more clean design.
