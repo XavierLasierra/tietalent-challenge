@@ -32,6 +32,7 @@ Rename `.env.example` file to `.env.local` and fill it with the correct data (AP
 - Have more unit tests and integration tests.
 - Improve website accessibility.
 - Better detail page.
+- Create global state with useContext to store user configuration data. Create light/dark theme rendered depending on this data.
 - Add git hooks (`husky`) to trigger actions as linting before commiting.
 - Add github actions to run the tests on pull request to check if everythings is ok before merging.
 - Create a figma beforehand to have a more clean design.
