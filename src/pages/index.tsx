@@ -82,6 +82,7 @@ export default function Home({
             title="Selected planets comparison"
             labels={wantedStats}
             datasets={chartData}
+            emptyText="No planets selected"
           />
         </div>
         <section className={styles.planetsSection}>

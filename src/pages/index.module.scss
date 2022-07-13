@@ -11,7 +11,6 @@
 
 .planetsSection {
   flex: 1;
-  padding: $medium-space;
 }
 
 .planets {
@@ -40,7 +39,7 @@
 }
 
 .planetNavigationButtons {
-  padding-top: $medium-space;
+  padding-top: $large-space;
   display: flex;
   justify-content: space-between;
 }
