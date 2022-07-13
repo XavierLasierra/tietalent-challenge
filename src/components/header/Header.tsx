@@ -1,16 +1,27 @@
 import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+
+import TtButton from "../ttButton/TtButton";
+import TtInput from "../ttInput/TtInput";
+
+import { AppRoutes } from "@/routes/appRoutes";
+
+import styles from "./Header.module.scss";
 
 interface HeaderProps {
   onSearch: (value: string) => void;
+  initialSearchValue?: string;
 }
 
-const Header = ({ onSearch }: HeaderProps) => {
-  const [searchValue, setSearchValue] = React.useState("");
+const Header = ({ onSearch, initialSearchValue }: HeaderProps) => {
+  const [searchValue, setSearchValue] = React.useState(
+    initialSearchValue || ""
+  );
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     onSearch(searchValue);
-    setSearchValue("");
   };
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,16 +29,27 @@ const Header = ({ onSearch }: HeaderProps) => {
   };
 
   return (
-    <header>
-      Planets explorer
-      <form onSubmit={onSubmit}>
-        <input
+    <header className={styles.header}>
+      <nav>
+        <Link href={AppRoutes.home}>
+          <a>
+            <Image src="/page_logo.png" width={32} height={32} />
+          </a>
+        </Link>
+      </nav>
+      <form className={styles.searchForm} onSubmit={onSubmit}>
+        <TtInput
+          placeholder="Planet name"
           value={searchValue}
           onChange={onChange}
-          type="text"
-          placeholder="Search"
+          type="search"
         />
-        <button type="submit">Search</button>
+        <TtButton
+          text="SEARCH"
+          buttonType="submit"
+          type="transparent"
+          width="auto"
+        />
       </form>
     </header>
   );

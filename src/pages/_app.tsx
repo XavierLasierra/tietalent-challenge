@@ -6,13 +6,17 @@ import { useRouter } from "next/router";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
+
   const addSearchQuery = (query: string) => {
     router.push(!!query ? `${AppRoutes.home}?name=${query}` : AppRoutes.home);
   };
 
   return (
     <div className="wrapper">
-      <Header onSearch={addSearchQuery} />
+      <Header
+        onSearch={addSearchQuery}
+        initialSearchValue={router.query?.name as string}
+      />
       <main className="main">
         <Component {...pageProps} />
       </main>
