@@ -91,33 +91,39 @@ export default function Home({
       </Head>
       <h1 className={styles.planetsTitle}>Planets comparator</h1>
       <div className={styles.container}>
-        <section className={styles.planetsChart}>
-          <TtRadarChart
-            title="Selected planets comparison"
-            labels={STATS_LABELS}
-            datasets={selectedPlanets.map((planet) => planet.planetData)}
-            emptyText="No planets selected"
-          />
-        </section>
-        <section className={styles.planetsSection}>
-          <ul className={styles.planets}>
-            {planets.map((planet) => (
-              <li className={styles.planetContainer} key={planet.id}>
-                <PlanetCard
-                  planet={planet}
-                  selected={isPlanetSelected(planet.id)}
-                  onSelect={onSelectPlanet}
-                />
-              </li>
-            ))}
-          </ul>
-          <PagesNavigation
-            onPageSelect={navigateToPlanetsPage}
-            currentPage={+currentPage}
-            totalCount={+totalPlanets}
-            pageCount={planets.length}
-          />
-        </section>
+        {planets.length > 0 ? (
+          <>
+            <section className={styles.planetsChart}>
+              <TtRadarChart
+                title="Selected planets comparison"
+                labels={STATS_LABELS}
+                datasets={selectedPlanets.map((planet) => planet.planetData)}
+                emptyText="No planets selected"
+              />
+            </section>
+            <section className={styles.planetsSection}>
+              <ul className={styles.planets}>
+                {planets.map((planet) => (
+                  <li className={styles.planetContainer} key={planet.id}>
+                    <PlanetCard
+                      planet={planet}
+                      selected={isPlanetSelected(planet.id)}
+                      onSelect={onSelectPlanet}
+                    />
+                  </li>
+                ))}
+              </ul>
+              <PagesNavigation
+                onPageSelect={navigateToPlanetsPage}
+                currentPage={+currentPage}
+                totalCount={+totalPlanets}
+                pageCount={planets.length}
+              />
+            </section>
+          </>
+        ) : (
+          <p className={styles.emptyList}>No planets found</p>
+        )}
       </div>
     </>
   );

@@ -32,6 +32,12 @@
   padding-top: $large-space;
 }
 
+.emptyList {
+  @include text-style($size-large, "bold");
+  text-align: center;
+  width: 100%;
+}
+
 @media only screen and (min-width: $mobile-breakpoint) {
   .container {
     flex-direction: row;

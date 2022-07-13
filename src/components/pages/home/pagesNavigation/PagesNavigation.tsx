@@ -17,6 +17,8 @@ const PagesNavigation = ({
   totalCount,
   onPageSelect,
 }: PagesNavigationProps) => {
+  if (!currentPage || !pageCount || !totalCount) return <></>;
+
   return (
     <div>
       <p className={styles.pageCount}>
