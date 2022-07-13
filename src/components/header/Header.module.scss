@@ -5,12 +5,12 @@
   top: 0;
   left: 0;
   right: 0;
+  height: $header-height;
   display: flex;
-  padding: 0 $large-space;
   justify-content: space-between;
   align-items: center;
+  padding: 0 $large-space;
   background-color: $background;
-  height: $header-height;
 }
 
 .searchForm {

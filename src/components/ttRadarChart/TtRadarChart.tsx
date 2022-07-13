@@ -50,7 +50,11 @@ const TtRadarChart = ({
 
   return (
     <div className={styles.chartBox}>
-      {datasets.length > 0 ? <Radar data={data} /> : <span>{emptyText}</span>}
+      {datasets.length > 0 ? (
+        <Radar data={data} />
+      ) : (
+        <p className={styles.emptyChart}>{emptyText}</p>
+      )}
     </div>
   );
 };

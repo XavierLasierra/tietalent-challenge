@@ -1,7 +1,13 @@
+@import "@/styles/fonts";
+
 .chartBox {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
   width: 100%;
+}
+
+.emptyChart {
+  @include text-style($size-large, "bold");
 }

@@ -1,8 +1,12 @@
-@import "@/styles/metrics.scss";
+@import "@/styles/metrics", "@/styles/fonts", "@/styles/colors";
 
 .container {
   display: flex;
   flex-direction: column;
+}
+
+.planetsTitle {
+  @include text-style($size-h1, "bold", $primary);
 }
 
 .planetsChart {
@@ -26,6 +30,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.planetName {
+  @include text-style($size-large, "bold");
 }
 
 .planetContent {
