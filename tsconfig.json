@@ -16,7 +16,8 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["src/components/*"],
+      "@/common-components/*": ["src/components/common/*"],
+      "@/components/*": ["src/components/pages/*"],
       "@/pages/*": ["src/pages/*"],
       "@/styles/*": ["src/styles/*"],
       "@/services/*": ["src/services/*"],

@@ -1,4 +1,4 @@
-import Header from "@/components/header/Header";
+import Header from "@/common-components/header/Header";
 import { AppRoutes } from "@/routes/appRoutes";
 import "@/styles/global.scss";
 import type { AppProps } from "next/app";
