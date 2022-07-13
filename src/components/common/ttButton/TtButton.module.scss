@@ -10,6 +10,19 @@
   width: $button-width;
   border: none;
   cursor: pointer;
+  transition: filter 0.2s;
+
+  &:hover {
+    filter: brightness(0.9);
+  }
+
+  &:active {
+    filter: brightness(0.9);
+
+    .buttonText {
+      transform: scale(0.9);
+    }
+  }
 }
 
 .button_secondary {
@@ -26,6 +39,7 @@
 
 .buttonText {
   @include text-style($size-small, "bold", $white);
+  transition: transform 0.2s;
 }
 
 .buttonText_large {
