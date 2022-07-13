@@ -1,11 +1,13 @@
 import React, { ButtonHTMLAttributes, ForwardedRef } from "react";
 import styles from "./TtButton.module.scss";
 
+export type ButtonTypes = "primary" | "secondary" | "transparent";
+
 export interface TTButtonProps {
   href?: string;
   text: string;
   onClick?: () => void;
-  type?: "primary" | "secondary" | "transparent";
+  type?: ButtonTypes;
   size?: "small" | "large";
   buttonType?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
   width?: "auto" | "fixed";
